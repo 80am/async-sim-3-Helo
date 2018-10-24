@@ -1,0 +1,187 @@
+.mainbody{
+    background-color: #F2F2F2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100vw;
+    height: 100vh;
+}
+
+header{
+    /* border: 5px black solid; */
+    background-image: linear-gradient(97deg, #ff7a6e, #ff9770);
+    height: 6vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2); */
+    /* box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26); */
+    position: fixed;
+}
+
+.headerleft2{
+    /* border: 1px black solid; */
+    width: 10vw;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
+    
+}
+.headerleft2 img{
+    /* border: 1px black solid; */
+    /* height: 2%;
+    width: 2%; */
+}
+
+.headercenter2{
+    /* border: 1px black solid; */
+    color: white;
+    /* font-weight: bold; */
+    font-size: 17px;
+    padding-right: 90px;
+    /* box-shadow: 0 1px 3px 0 rgba(148, 71, 71, 0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
+}
+
+.headerright2{
+    /* border: 1px black solid; */
+    color: white;
+    /* font-weight: bold; */
+    font-size: 17px;
+    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
+    /* ----------------------------------------------------Header */
+}
+.the6{
+    height: 8vh;
+    width: 100vw;
+    background-color: #F2F2F2
+}
+.lowerhalf2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2F2F2;
+    /* border: 2px solid #adff2f; */
+}
+.middlewhitebox2{
+    /* border: 1px solid #adff2f; */
+    display: flex;
+    width: 50vw;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+
+}
+.twobox2{
+    /* border: 1px #000000 solid; */
+    display: flex;
+    margin: 10px;
+    width: 100%;
+    justify-content: space-between;
+    height: 15vh;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2)
+}
+.boxleft2{
+    /* border: 1px #000000 solid; */
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 8px;
+    display: flex;
+
+    
+}
+.boxleft2 button{
+    width: 5vw;
+    height: 3vw;
+    margin: 5px;
+    background-color: #F5F3F2;
+    border-radius: 30px;
+    background-image: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    border: solid 1px #ccc3c3;
+}
+.boxright2{
+    /* border: 1px #ff22ff solid; */
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px
+}
+.update{
+    width: 5vw;
+    height: 2vw;
+    margin: 5px;
+    background-color: #545251;
+    color: white;
+    border-radius: 30px;
+    background-image: radial-gradient(circle at 50% -46%, #737373, #403d39);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    border: solid 1px #ccc3c3;
+}
+
+.cancelbutton{
+    width: 5vw;
+    height: 2vw;
+    margin: 5px;
+    background-color: #F5F3F2;
+    border-radius: 30px;
+    background-image: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    border: solid 1px #ccc3c3;
+}
+.userpic{
+    height: 80%;
+    width: 40%;
+    border: 2px solid #FFA987;
+    margin: 9px;
+    /* padding-left: 5px; */
+}
+
+.text2{
+    padding-top: 2%;
+    font-size: 15px;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+/*-----------------------------------------------lower part*/
+lowerbottom2{
+    /* border: 1px #0000ff solid; */
+    width: 100%;
+    height: 40%;
+    margin: 15px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+    flex-direction: column;
+    display: flex;
+    /* align-items: flex-start; */
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+lowerbottom2 p{
+    /* text-align: left; */
+    padding-right: 70px;
+    line-height: 1px;
+}
+
+lowerbottom2 input{
+    /* padding-left: 20px; */
+    height: 7%;
+    border: #ff9770 solid 1px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+
+}
+
+lowerbottom2 select{
+    height: 7%;
+    width: 24%;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+
+}
