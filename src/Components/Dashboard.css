@@ -192,7 +192,7 @@ upperlowerbox{
 }
 .infoboxleft1{
     border: 2px solid #ff9770;
-    height: 100%;
+    height: 90%;
     width: 100%;
 }
 
@@ -202,7 +202,7 @@ upperlowerbox{
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 30%;
+    width: 40%;
     line-height: 0px;
     max-height: 100%;
     position: relative;

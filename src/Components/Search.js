@@ -5,11 +5,33 @@ import home from '../Images/friendsterHome.png'
 import search from '../Images/friendsterSearch.png'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import axios from 'axios'
 
 class Search extends Component {
 
+    constructor(props) {
+        super(props)
+            this.state = {
+                count: ''
+        }
+    }
+
+
+    componentDidMount(){
+        axios.get('/api/numberofpeople').then( res => this.setState({count:res.data}))
+    }
+
     render() {
+
+        var numberofPages = (this.state.count / 4)
+        var actualCount = Math.ceil(numberofPages)
+        
+
+        // function(num){
+        //     if( this.state.count%3!=0){
+        //         (this.state.count++ )
+        //     }
+        // }
         return (
             <mainbody>
                 <header>

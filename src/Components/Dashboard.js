@@ -5,6 +5,8 @@ import home from '../Images/friendsterHome.png'
 import search from '../Images/friendsterSearch.png'
 import { Link } from 'react-router-dom'
 import axios from "axios"
+import { connect } from 'react-redux'
+
 
 
 class Dashboard extends Component {
@@ -77,7 +79,9 @@ class Dashboard extends Component {
                     </div>
                     
                     <div className="headerright">
+                        <a href="http://localhost:5001/logout">
                         <div>Logout</div>
+                        </a>
                     </div>
                 </header>
                 <div className="the6"></div>
@@ -85,9 +89,9 @@ class Dashboard extends Component {
                 <div className="middlewhitebox">
                 <lowertop className="twobox">
                     <div className="boxleft">
-                        <div className="userpic"></div>
+                        <div className="userpic" value={this.props.image}></div>
                         <div className="boxleftright">
-                            <p>Alex Smith</p>
+                            <p>{this.props.firstname}{this.props.lastname}</p>
                             <Link to="/profile">
                             <button>Edit Profile</button>
                             </Link>
@@ -138,4 +142,13 @@ class Dashboard extends Component {
     }
 }
 
-export default withRouter(Dashboard);
+function mapStateToProps(state) {
+    return{
+    persons: state.person,
+    firstname: state.person.firstname,
+    lastname: state.person.lastname,
+    image: state.person.image   
+    }
+}
+
+export default connect(mapStateToProps)(Dashboard);

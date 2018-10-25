@@ -112,7 +112,7 @@ class Profile extends Component {
                 <lowertop className="twobox2">
                     <div className="boxleft2">                  
                         <div className="userpic">
-                        <img src="https://robohash.org/63.143.4.png?bgset=bg1" height="100%" width="100%"/>
+                        <img src={`https://robohash.org/${this.props.firstname}.png?bgset=bg1`} height="100%" width="100%"/>
                         
                         </div>                  
                         <div>

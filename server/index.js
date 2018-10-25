@@ -65,7 +65,7 @@ catch(error){
 //----------------------------------------------------------------------------------------------------
 
 app.get('/api/getfriendslist', ctrl.getFriends)
-// app.post('/api/userlogin', ctrl.uLogin)
+app.get('/api/numberofpeople', ctrl.numberOfPeople)
 // app.get('/api/getuserdata', ctrl.userData)
 // app.post('/api/filterstuff', ctrl.filterInfo)
 // app.post('/api/userregister', ctrl.userregister)
@@ -73,6 +73,13 @@ app.get('/api/getfriendslist', ctrl.getFriends)
 // app.delete(`/api/dashboard/:id`, ctrl.deleteStuff)
 // app.put('/api/shelf/:id/bin/:bin', ctrl.deleteProduct)
 
+app.get('/api/userspages/:page', ctrl.userspages)
+
+app.get('/logout', (req, res) => {
+    req.session.destroy()
+    console.log("session no more")
+    res.redirect("https://claycamp.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost%3A3000")
+})
 
 massive(CONNECTION_STRING).then(connection => {
     app.set('db', connection)
@@ -83,3 +90,6 @@ massive(CONNECTION_STRING).then(connection => {
 app.listen(SERVER_PORT, () => {
     console.log(`Mr Smith lives on ${SERVER_PORT}`)
 })
+
+//limit and offset
+// count 
