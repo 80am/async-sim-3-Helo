@@ -89,13 +89,16 @@ lowertop3{
 
 }
 midbottom3{
-    border: 1px #ff0000 solid;
+    /* border: 1px #ff0000 solid; */
     width: 100%;  
-    height: 10%; 
+    height: relative; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 lowerbottom3{
-    width: 85%;    
+    width: 45%;    
     /* border: 1px #ffbb00 solid; */
     height: 7%;
     margin: 15px;
@@ -105,8 +108,11 @@ lowerbottom3{
     display: flex;
     /* align-items: flex-start; */
     align-items: center;
-    
-    
+    position: absolute;
+    bottom: 75px;
+}
+selected:before{
+    content: "Page: ";
 }
 lowerbottom3 p{
     border: 10px #ffbb00 solid;
@@ -156,7 +162,7 @@ lowerbottom3 p{
 }
 .infoboxleft{
     /* border: 1px solid black; */
-    width: 25%;
+    width: 35%;
     background-color:#FFFFFF;
     display: flex;
     justify-content: center;
@@ -165,7 +171,7 @@ lowerbottom3 p{
 }
 .infoboxleft1{
     border: 2px solid #ff9770;
-    height: 90%;
+    height: 96%;
     width: 100%;
 }
 
@@ -175,7 +181,7 @@ lowerbottom3 p{
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    width: 40%;
+    width: 45%;
     line-height: 0px;
     max-height: 100%;
     position: relative;
@@ -189,7 +195,7 @@ lowerbottom3 p{
     border-radius: 5px;
     border-style: none;
     height: 30px;
-    width: 52%;
+    width: 85%;
     box-shadow: 0 5px 20px 0 rgba(0,0,0,0), 0 4px 6px 0 rgba(0,0,0,0.2);
     color: white;
     margin: 13px
@@ -198,7 +204,7 @@ lowerbottom3 p{
 .infoboxleftt{
     /* border: 2px solid green; */
     height: 100%;
-    width: 60%;
+    width: 40%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -213,35 +219,57 @@ lowerbottom3 p{
     justify-content: space-around;
     align-items: center;
     color: black;
-    float: left;
+    /* float: left; */
+
     /* text-decoration: none; */
 
 }
-.pagebar a{
+.current{
     height: 40%;
-    width: 6%;
+    width: 3%;
     border: 2px solid black;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     background-color: white;
     color: black;
+    display: flex;
+    padding-left: 10px;
+    /* padding-right: 10px */
+   
+}
+.current1{
+    display: flex;
+    padding-right: 30px;
+    height: 100%;
+    width: 100%;
+    /* justify-content: center; */
+    
 }
 
-.pagebar a:hover:not(.active){
+.current:hover{
     background-color: black;
     color: white;
     height: 40%;
-    width: 6%;
+    width: 8%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    /* content: "Page:   "; */
+    border-color: white;
+    text-decoration-color: white;
+    padding-right: 10px;
 }
-
-.pagebar a:active{
-    height: 40%;
-    width: 10%;
-    border: 2px solid black;
+.current1:hover:before{
+    content: "Page- ";
+    color: white;
+    
+}
+pagebar .text:hover{
+    visibility: visible;
     display: flex;
-    justify-content: center;
-    background-color: black;
-    color: #ffffff;
+}
+pagebar .text{
+    /* content: "Page: "; */
+    visibility: hidden;
+    color: blue;
+    display: flex;
 }

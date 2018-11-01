@@ -64,16 +64,17 @@ catch(error){
 
 //----------------------------------------------------------------------------------------------------
 
-app.get('/api/getfriendslist', ctrl.getFriends)
+app.get('/api/getusers', ctrl.getFriends)
 app.get('/api/numberofpeople', ctrl.numberOfPeople)
-// app.get('/api/getuserdata', ctrl.userData)
-// app.post('/api/filterstuff', ctrl.filterInfo)
+app.get('/api/firstname', ctrl.searchFirstname)
+app.get('/api/lastname', ctrl.searchLastname)
+app.post('/api/addfriend', ctrl.addFriend)
 // app.post('/api/userregister', ctrl.userregister)
 // app.post('/api/complete', ctrl.userComplete)
 // app.delete(`/api/dashboard/:id`, ctrl.deleteStuff)
 // app.put('/api/shelf/:id/bin/:bin', ctrl.deleteProduct)
 
-app.get('/api/userspages/:page', ctrl.userspages)
+app.get('/api/search/:searchId', ctrl.userspages)
 
 app.get('/logout', (req, res) => {
     req.session.destroy()

@@ -3,8 +3,8 @@ import { createStore } from 'redux'
 
 const initialState = {
     person:{
-        firstname:'',
-        lastname:'',
+        firstname:'Edit',
+        lastname:'Profile',
         gender:'',
         haircolor:'',
         eyecolor:'',

@@ -1,2 +1,2 @@
 select * from helousers
-where auth_id = $1
+where firstname like $1

@@ -14,14 +14,21 @@ class Dashboard extends Component {
         super(props)
         this.state={
 
-            friends: []
+            friends: [],
+            sort:""
 
         }
     this.handleAddFriend=this.handleAddFriend.bind(this)
+    this.handleSort=this.handleSort.bind(this)
+    // this.compare=this.compare.bind(this)
     }
 
     componentDidMount(){
-        axios.get(`/api/getfriendslist`).then(res => this.setState({friends: res.data})
+        axios.get(`/api/getusers`).then(res => this.setState({friends: res.data})
+        
+        // .then(this.state.friends.firstname.sort())
+                    // .then(this.state.friends`${this.state.sort}`.sort())
+                    // {(`${friend.firstname}`.toUpperCase())}
             // res =>console.log(res.data)
             
         )
@@ -30,16 +37,56 @@ class Dashboard extends Component {
     handleAddFriend(id){
 
     }
-
+    handleSort(e){
+        // let sort = e.target.value    
+        this.setState({
+            sort: e.target.value
+        })
+        var listoffriends = this.state.friends
+        // console.log(sort)
+        // console.log(sort)
+       
+        function compare (a, b) {
+            
+        // if(sort == "firstname")
+            const nameA = a.lastname.toUpperCase();
+            const nameB = b.lastname.toUpperCase();
+          
+            let comparison = 0;
+            if (nameA > nameB) {
+              comparison = 1;
+            } else if (nameA < nameB) {
+              comparison = -1;
+            }
+            return comparison;
+          }
+        
+        // else if (sort == "lastname"){
+        //     const nameA = a.lastname.toUpperCase();
+        //     const nameB = b.lastname.toUpperCase();
+          
+        //     let comparison = 0;
+        //     if (nameA > nameB) {
+        //       comparison = 1;
+        //     } else if (nameA < nameB) {
+        //       comparison = -1;
+        //     }
+        //     return comparison;
+        //   } 
+        // }
+    
+          listoffriends.sort(compare);
+    
+    }
     
     render(){
+        var uppername = (`${this.props.firstname}`)
+        var name = uppername.toUpperCase();
+        
+        var upperlast = (`${this.props.lastname}`)
+        var last = upperlast.toUpperCase();
         let friendsList = this.state.friends.map(friend => {
-            if (friend.firstname == null) {
-
-                return (
-                    "There are no friends for you"
-                )
-            } else {
+            
                 return (
                     <React.Fragment key={friend.id}>
                         <div className="biginfobox">
@@ -48,8 +95,8 @@ class Dashboard extends Component {
                                 <img src={friend.image} height="100%" width="100%"/>                                </div>
                             </div>
                             <div className="infoboxcenter">
-                                <p>{friend.firstname}</p>
-                                <p>{friend.lastname}</p>
+                                <p>{(`${friend.firstname}`.toUpperCase())}</p>
+                                <p>{(`${friend.lastname}`.toUpperCase())}</p>
                             </div>
                            <div className="infoboxleftt">
                                <button onClick={()=>this.handleAddFriend(friend.id)}>Add Friend</button>
@@ -57,7 +104,7 @@ class Dashboard extends Component {
                         </div>
                     </React.Fragment>
                 )
-            }
+            
         })
         return(
             <mainbody>
@@ -69,7 +116,7 @@ class Dashboard extends Component {
                         <Link to='/dashboard'>
                         <img src={home} alt=""/>
                         </Link>
-                        <Link to='/Search'>
+                        <Link to={{pathname:`/search/`}}>
                         <img src={search} alt=""/>
                         </Link>
                     </div>
@@ -89,9 +136,12 @@ class Dashboard extends Component {
                 <div className="middlewhitebox">
                 <lowertop className="twobox">
                     <div className="boxleft">
-                        <div className="userpic" value={this.props.image}></div>
+                        
+                        <img className="userpic" src={`https://robohash.org/${this.props.firstname}.png?bgset=bg1`} height="100%" width="100%"/>
+                        
                         <div className="boxleftright">
-                            <p>{this.props.firstname}{this.props.lastname}</p>
+                            <p><b>{name}</b></p>
+                            <p><b>{last}</b></p>
                             <Link to="/profile">
                             <button>Edit Profile</button>
                             </Link>
@@ -108,7 +158,7 @@ class Dashboard extends Component {
                     <upperlowerbox>
                     <div className="recfriends"><h3>Recommended Friends</h3></div>
                     <div className="sortby">Sorted by:
-                    <select>
+                    <select onChange={this.handleSort}>
                         <option name="" value=""></option>
                         <option name="" value="firstname">First Name</option>
                         <option name="" value="lastname">Last Name</option>

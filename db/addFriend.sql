@@ -1,0 +1,2 @@
+insert into helofriendlist
+where 

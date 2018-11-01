@@ -1,1 +1,1 @@
-select count(*) from helofriendlist
+// select count(*) from helofriendlist

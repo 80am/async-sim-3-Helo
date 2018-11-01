@@ -1,4 +1,4 @@
-insert into helouser(
+insert into helousers(
     auth_id
 ) values (
     $1
