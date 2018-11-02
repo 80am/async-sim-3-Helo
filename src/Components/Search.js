@@ -11,130 +11,158 @@ class Search extends Component {
 
     constructor(props) {
         super(props)
-            this.state = {
-                friends: [], 
-                friends2: [],
-                page: 1,
-                filterInput: "",
-                filterSelect:""
+        this.state = {
+            friends: [],
+            friends2: [],
+            page: 1,
+            filterInput: "",
+            filterSelect: ""
         }
-        this.handlePageChange=this.handlePageChange.bind(this)
-        this.paginate=this.paginate.bind(this)
-        this.handleButton=this.handleButton.bind(this)
-        this.handlefilterInput=this.handlefilterInput.bind(this)
-        this.filterSelect=this.filterSelect.bind(this)
-        this.handlefilterSearch=this.handlefilterSearch.bind(this)
-        this.componentDidMount=this.componentDidMount.bind(this)
+        this.handlePageChange = this.handlePageChange.bind(this)
+        this.paginate = this.paginate.bind(this)
+        this.handleButton = this.handleButton.bind(this)
+        this.handlefilterInput = this.handlefilterInput.bind(this)
+        this.filterSelect = this.filterSelect.bind(this)
+        this.handlefilterSearch = this.handlefilterSearch.bind(this)
+        this.componentDidMount = this.componentDidMount.bind(this)
     }
 
-    paginate(list, page=1, perPage=4){
-       return list.slice((page - 1) * perPage, page * perPage)
+    paginate(list, page = 1, perPage = 4) {
+        return list.slice((page - 1) * perPage, page * perPage)
     }
 
 
-    componentDidMount(){
-        axios.get(`/api/getusers`).then(res => this.setState({friends: res.data})
-        // console.log("this is the search page")
-        // axios.get(`/api/search?searchId=${1}`).then(res => this.setState({friends: res.data})    
+    componentDidMount() {
+        axios.get(`/api/everyoneElse`).then((res) => {
+            this.setState({ friends: res.data })
+        },
+            axios.get(`/api/myfriends`).then((res) => {
+                this.setState({ friends2: res.data })
+            }
         )
-    }
+        )
+        
 
-    handlePageChange(number){
+    }
+    // axios.get(`/api/getusers`).then(res => this.setState({friends: res.data})
+
+    handlePageChange(number) {
         // console.log('number', number)
         this.setState({
-            page: number 
+            page: number
         })
         // console.log(this.state.page)
     }
 
-    handleButton(){
-        if(this.state.page = 1){}
+    handleButton() {
+        if (this.state.page = 1) { }
     }
 
-    filterSelect(e){
+    filterSelect(e) {
         console.log(this.state.filterSelect)
         this.setState({
             filterSelect: e.target.value
         })
     }
 
-    handlefilterInput(e){
+    handlefilterInput(e) {
         console.log(this.state.filterInput)
         this.setState({
             filterInput: e.target.value
         })
     }
 
-    handlefilterSearch(){
+    handlefilterSearch() {
         console.log(this.state.filterSelect)
-        if(this.state.filterSelect == "firstname"){
-            axios.get(`/api/firstname?filterInput=${this.state.filterInput}`).then(res =>this.setState({friends: res.data}))
-        }         
-        else if
-        (this.state.filterSelect == "lastname")
-        {axios.get(`/api/lastname?filterInput=${this.state.filterInput}`).then(res =>this.setState({friends: res.data}))
-            
+        if (this.state.filterSelect == "firstname") {
+            axios.get(`/api/firstname?filterInput=${this.state.filterInput}`).then(res => this.setState({ friends: res.data }))
         }
-        else{ alert("Choose First Name or Last Name, Poor Favor")}
+        else if
+        (this.state.filterSelect == "lastname") {
+            axios.get(`/api/lastname?filterInput=${this.state.filterInput}`).then(res => this.setState({ friends: res.data }))
+
+        }
+        else { alert("Choose First Name or Last Name, Poor Favor") }
     }
 
-    handleAddFriend(id){
-        axios.post(`/api/addfriend`, id).then(()=>{})
+    handleAddFriend(id) {
+        axios.post(`/api/addfriend`, id).then(() => { })
     }
     render() {
+          Array.prototype.push.apply(this.state.friends, this.state.friends2)
         
+        console.log("this is allFriends: ", this.state.friends)
+
         var pagedFriends = this.paginate(this.state.friends, this.state.page)
         var totalPages = Math.ceil(this.state.friends.length / 4)
-        
+
         var buttons = [];
         var loopIt = () => {
-            for(let i = 1; i <= totalPages; i++){
-                buttons.push( <div className="current">
-                {/* <p1 className="text">Page: </p1> */}
-                    <div className="current1" key = {i} onClick={() =>{this.handlePageChange(i)}} value={i} >{i}</div>
-                               </div>)
+            for (let i = 1; i <= totalPages; i++) {
+                buttons.push(<div className="current">
+                    <div className="current1" key={i} onClick={() => { this.handlePageChange(i) }} value={i} >{i}</div>
+                </div>)
             }
         }
 
         loopIt();
-        // console.log(buttons)
-        // var numberofPages = (this.state.count / 4)
-        // var actualCount = Math.ceil(numberofPages)
-        
+       
+
         let friendpages = pagedFriends.map(friend => {
 
 
-            if (friend.id == null) {
-              
+            if (friend.friend_id>0) {
+
                 return (
-                    <React.Fragment key={friend.auth_id}>
-                    
-                    <div className="biginfobox">
+                    <React.Fragment key={friend.user_id}>
+
+                        <div className="biginfobox">
                             <div className="infoboxleft">
                                 <div className="infoboxleft1">
-                                <img src={friend.image} height="100%" width="100%"/>                                </div>
+                                    <img src={friend.image} height="100%" width="100%" />                                </div>
                             </div>
                             <div className="infoboxcenter">
                                 <p>{(`${friend.firstname}`.toUpperCase())}</p>
                                 <p>{(`${friend.lastname}`.toUpperCase())}</p>
                             </div>
-                           <div className="infoboxleftt">
-                               <button onClick={()=>this.handleAddFriend(friend.auth_id)}>Add Friend</button>
-                           </div>
+                             <div className="infoboxleftt">
+                                <button className="removefriend" onClick={() => this.handleAddFriend(friend.user_id)}>Remove</button>
+                            </div>
                         </div>
-                                <br/>
-                    
+                        <br />
+
                     </React.Fragment>
                 )
+            }else{
+                return(
+                <React.Fragment key={friend.user_id}>
+
+                        <div className="biginfobox">
+                            <div className="infoboxleft">
+                                <div className="infoboxleft1">
+                                    <img src={friend.image} height="100%" width="100%" />                                </div>
+                            </div>
+                            <div className="infoboxcenter">
+                                <p>{(`${friend.firstname}`.toUpperCase())}</p>
+                                <p>{(`${friend.lastname}`.toUpperCase())}</p>
+                            </div>
+                            <div className="infoboxleftt">
+                                <button className="addfriend" onClick={() => this.handleAddFriend(friend.user_id)}>Add Friend</button>
+                            </div>
+                        </div>
+                        <br />
+
+                    </React.Fragment>
+                    )
             }
         })
-        
+
         return (
             <mainbody>
                 <header>
                     <div className="headerleft">
-                    <Link to="/">
-                        <button className="headerhelo">Helo</button>
+                        <Link to="/">
+                            <button className="headerhelo">Helo</button>
                         </Link>
                         <Link to='/dashboard'>
                             <img src={home} alt="" />
@@ -169,7 +197,7 @@ class Search extends Component {
                         </lowertop3>
                         <midbottom3>
                             {/* where friends load in     */}
-                        {friendpages}
+                            {friendpages}
 
                         </midbottom3>
                         <lowerbottom3>
@@ -177,17 +205,17 @@ class Search extends Component {
 
 
 
-                         <div className="pagebar" onClick={this.handleButton}>
-                               {buttons}
+                            <div className="pagebar" onClick={this.handleButton}>
+                                {buttons}
 
-                         </div>
+                            </div>
                         </lowerbottom3>
                     </div>
                 </div>
             </mainbody>
 
-)
-}
+        )
+    }
 }
 export default withRouter(Search)
 
@@ -213,7 +241,7 @@ export default withRouter(Search)
 //             for (let j=0; j<=this.state.friends.length; j++) {
 //                 if (this.state.friends[j].lastname.match(this.state.filter)) 
 //                  return (filteredPeople.push(j))
-                 
+
 //             }
 // } else if(this.state.filterSelect = ''){
 //         return alert("Choose search by First Name or Last Name")

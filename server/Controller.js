@@ -1,11 +1,11 @@
 module.exports={
     getFriends: (req, res) => {
-        console.log(req)
+        // console.log(req)
         const db=req.app.get('db')
         db.allPeople([req.session.user.user_id])
         .then((listofFriends) => {
             console.log("made it out of the database")
-            console.log("this is friendsList", listofFriends)
+            // console.log("this is friendsList", listofFriends)
             res.status(200).send(listofFriends)
         })
     },
@@ -22,7 +22,7 @@ module.exports={
         var offset=((4*req.params.page)-4)
         const db=req.app.get('db')
         db.userspages([offset])
-        .then(console.log)
+        // .then(console.log)
     },
 
     searchFirstname: (req,res) =>{
@@ -49,8 +49,25 @@ module.exports={
     },
     addFriend:(req,res) => {
 
-        console.log("this is session info,",req.session)
+        console.log("this is session info,", req.session)
         const db=req.app.get('db')
         db.addFriend([req.body, req.session.auth_id])
+    },
+    geteveryoneElse:(req, res) => {
+        // console.log("this is the session",req.session)
+        const db=req.app.get('db')
+        db.everyoneElse([req.session.user.user_id,req.session.user.user_id,req.session.user.user_id])
+        .then((notmyFriends) => {
+            res.status(200).send(notmyFriends)
+            // console.log("not my friends",notmyFriends)
+        })
+    },
+    myfriends:(req, res) => {
+        const db=req.app.get('db')
+        db.myfriends([req.session.user.user_id])
+        .then((myfriends) => {
+            res.status(200).send(myfriends)
+            // console.log("these are my friends:", myfriends)
+        })
     }
 }

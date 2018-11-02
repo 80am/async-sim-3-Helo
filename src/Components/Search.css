@@ -190,8 +190,19 @@ lowerbottom3 p{
     font-weight: bold;
     font-size: 15px;
 }
-.biginfobox button{
+.addfriend{
     background-color: #ff9770;
+    border-radius: 5px;
+    border-style: none;
+    height: 30px;
+    width: 85%;
+    box-shadow: 0 5px 20px 0 rgba(0,0,0,0), 0 4px 6px 0 rgba(0,0,0,0.2);
+    color: white;
+    margin: 13px
+    
+}
+.removefriend{
+    background-color: #5B5A59;
     border-radius: 5px;
     border-style: none;
     height: 30px;

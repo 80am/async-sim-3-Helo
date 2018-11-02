@@ -69,10 +69,9 @@ app.get('/api/numberofpeople', ctrl.numberOfPeople)
 app.get('/api/firstname', ctrl.searchFirstname)
 app.get('/api/lastname', ctrl.searchLastname)
 app.post('/api/addfriend', ctrl.addFriend)
-// app.post('/api/userregister', ctrl.userregister)
-// app.post('/api/complete', ctrl.userComplete)
-// app.delete(`/api/dashboard/:id`, ctrl.deleteStuff)
-// app.put('/api/shelf/:id/bin/:bin', ctrl.deleteProduct)
+app.get('/api/everyoneElse', ctrl.geteveryoneElse)
+app.get('/api/myfriends', ctrl.myfriends)
+
 
 app.get('/api/search/:searchId', ctrl.userspages)
 
