@@ -64,13 +64,17 @@ catch(error){
 
 //----------------------------------------------------------------------------------------------------
 
-app.get('/api/getusers', ctrl.getFriends)
+app.get('/api/getusers/', ctrl.getFriends)
 app.get('/api/numberofpeople', ctrl.numberOfPeople)
 app.get('/api/firstname', ctrl.searchFirstname)
 app.get('/api/lastname', ctrl.searchLastname)
-app.post('/api/addfriend', ctrl.addFriend)
+// app.get('/api/lastname2', ctrl.searchLastname2)
 app.get('/api/everyoneElse', ctrl.geteveryoneElse)
 app.get('/api/myfriends', ctrl.myfriends)
+app.get('/api/myinfo/', ctrl.myinfo)
+app.post('/api/addfriend/:id', ctrl.addFriend)
+app.post('/api/deletefriend/:id', ctrl.deleteFriend)
+app.put('/api/updateInfo/', ctrl.updateInfo)
 
 
 app.get('/api/search/:searchId', ctrl.userspages)

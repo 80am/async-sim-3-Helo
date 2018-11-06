@@ -2,7 +2,7 @@ module.exports={
     getFriends: (req, res) => {
         // console.log(req)
         const db=req.app.get('db')
-        db.allPeople([req.session.user.user_id])
+        db.allPeople([req.session.user.user_id,req.session.user.user_id,req.session.user.user_id])
         .then((listofFriends) => {
             console.log("made it out of the database")
             // console.log("this is friendsList", listofFriends)
@@ -47,12 +47,6 @@ module.exports={
         // console.log("made it out of the data base with", filterPeople)
         })
     },
-    addFriend:(req,res) => {
-
-        console.log("this is session info,", req.session)
-        const db=req.app.get('db')
-        db.addFriend([req.body, req.session.auth_id])
-    },
     geteveryoneElse:(req, res) => {
         // console.log("this is the session",req.session)
         const db=req.app.get('db')
@@ -69,5 +63,51 @@ module.exports={
             res.status(200).send(myfriends)
             // console.log("these are my friends:", myfriends)
         })
+    },
+    deleteFriend:(req, res) => {
+        const db=req.app.get('db')
+        console.log("session id and body",req.session.user.user_id, req.params.id)
+        db.deleteFriend([req.session.user.user_id, req.params.id])
+        .then(()=>{
+            db.deleteFriend([req.params.id, req.session.user.user_id])
+            .then((deletedFriend)=>{
+                res.status(200).send(deletedFriend)
+            })
+        })
+    },
+    addFriend:(req,res) => {
+        // console.log("this is session info,", req.session)
+        console.log("session id and body",req.session.user.user_id, req.params.id)
+        const db=req.app.get('db')
+        db.addFriend([req.params.id, req.session.user.user_id])
+        .then((addedFriend)=>{
+            res.status(200).send(addedFriend)
+        })
+    },
+    myinfo: (req, res) => {
+        const db=req.app.get('db')
+        db.myinfo([req.session.user.user_id])
+        .then((myInfo) => {
+            console.log('this is yourrr info::',myInfo)
+            console.log('we got your info and headed back')
+            res.status(200).send(myInfo)
+        })
+    },
+    updateInfo: (req, res) => {
+        console.log("this is the req bodyyy", req.body)
+        const db=req.app.get('db')
+        db.updateInfo([req.session.user.auth_id, 
+                       req.body.firstname, 
+                       req.body.lastname, 
+                       req.body.gender, 
+                       req.body.haircolor, 
+                       req.body.eyecolor, 
+                       req.body.hobby, 
+                       req.body.birthday, 
+                       req.body.birthmonth, 
+                       req.body.birthyear, 
+                       req.body.image,
+                       req.session.user.user_id])
+        .then(res.sendStatus(200))
     }
 }

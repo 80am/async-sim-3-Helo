@@ -16,7 +16,10 @@ class Dashboard extends Component {
 
             friends: [],
             filterSelect: "",
-            sortedFriends: []
+            sortedFriends: [],
+            firstname: '',
+            lastname: '',
+            image:""
 
         }
         this.handleAddFriend = this.handleAddFriend.bind(this)
@@ -24,14 +27,18 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        axios.get(`/api/getusers`).then(res => this.setState({ friends: res.data })
-
-        )
+        axios.get(`/api/getusers/`).then((res) => {this.setState({ friends: res.data })
+        
+        })
+        axios.get('/api/myinfo/').then((res)=> {this.setState({firstname: res.data[0].firstname, lastname: res.data[0].lastname, image: res.data[0].image})
+        })
+        
     }
 
 
     handleAddFriend(id) {
-
+        axios.post(`/api/addfriend/${id}`).then(() => 
+                {this.componentDidMount() })
     }
     handleSort(e) {
         
@@ -72,18 +79,21 @@ class Dashboard extends Component {
     }
 
     render() {
-        var uppername = (`${this.props.firstname}`)
-        var name = uppername.toUpperCase();
-
-        var upperlast = (`${this.props.lastname}`)
-        var last = upperlast.toUpperCase();
+        var firstName = this.state.firstname ? this.state.firstname : this.props.firstname
+        // var uppername = (`${firstname}`)
+        var name = firstName.toUpperCase();
+        
+        var lastName = this.state.lastname ? this.state.lastname : this.props.lastname
+        // var upperlast = (`${this.state.lastname}`)
+        var last = lastName.toUpperCase();
        
+        var image = this.state.image ? this.state.image : `https://robohash.org/${this.props.firstname}.png?bgset=bg1`
 
         var friends = this.state.sortedFriends.length ? this.state.sortedFriends : this.state.friends 
         let friendsList = friends.map(friend => {
 
             return (
-                <React.Fragment key={friend.id}>
+                <React.Fragment key={friend.user_id}>
                     <div className="biginfobox">
                         <div className="infoboxleft">
                             <div className="infoboxleft1">
@@ -94,7 +104,7 @@ class Dashboard extends Component {
                             <p>{(`${friend.lastname}`.toUpperCase())}</p>
                         </div>
                         <div className="infoboxleftt">
-                            <button className="addfriend" onClick={() => this.handleAddFriend(friend.id)}>Add Friend</button>
+                            <button className="addfriend" onClick={() => this.handleAddFriend(friend.user_id)}>Add Friend</button>
                         </div>
                     </div>
                 </React.Fragment>
@@ -132,7 +142,7 @@ class Dashboard extends Component {
                         <lowertop className="twobox">
                             <div className="boxleft">
 
-                                <img className="userpic" src={`https://robohash.org/${this.props.firstname}.png?bgset=bg1`} height="100%" width="100%" />
+                                <img className="userpic" src={image} height="100%" width="100%" />
 
                                 <div className="boxleftright">
                                     <p><b>{name}</b></p>

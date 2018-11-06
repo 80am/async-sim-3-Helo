@@ -14,6 +14,7 @@ export default(
         <Route exact path= '/Profile' component={Profile} />
         <Route exact path= '/Dashboard' component={Dashboard} />
         <Route exact path= '/Search' component={Search} />
+        {/* <Route exact path= '/Search2' component={Search} /> */}
     </Switch>
 
 )

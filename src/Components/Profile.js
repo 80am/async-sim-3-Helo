@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
 import './Profile.css'
-import { withRouter } from 'react-router'
 import home from '../Images/friendsterHome.png'
 import search from '../Images/friendsterSearch.png'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import axios from "axios"
 
 class Profile extends Component {
 
     constructor(props){
         super(props)
     
+        this.state={
+            name:'',
+            last:'',
+            gender:'',
+            hair:'',
+            eye:'',
+            hobby:'',
+            birthday:'',
+            birthmonth:'',
+            birthyear:'',
+            image:''
+
+        }
+
         this.handleName=this.handleName.bind(this)
         this.handleLast=this.handleLast.bind(this)
         this.handleGender=this.handleGender.bind(this)
@@ -22,61 +35,72 @@ class Profile extends Component {
         this.handleMonth=this.handleMonth.bind(this)
         this.handleYear=this.handleYear.bind(this)
         this.handleImage=this.handleImage.bind(this)
+        this.updateInfo=this.updateInfo.bind(this)
     }
     
     componentDidMount(){
-        // var userPicture = {
-        //     if ({this.props.image} != '')
-        //         return {this.props.image}
-        // }
+        axios.get('/api/myinfo/')
+        .then(res => console.log(res)
+            // (res)=>this.setState ({name:res.data[0].firstname, last:res.data[0].lastname, gender: res.data[0].gender, hair: res.data[0].hair_color, eye: res.data[0].eye_color, hobby: res.data[0].hobby, birthday: res.data[0].birthday, birthmonth: res.data[0].birth_month, birthyear: res.data[0].birth_year, image: res.data[0].image})
+        )
+        console.log('this is state on DIDMOUNT', this.state)
     }
 
     handleName(e) {
-        console.log(this.props.addfirstName)
+        // console.log(this.props.addfirstName)
         this.props.addfirstName(e.target.value)
+        this.props.addimage(`https://robohash.org/${e.target.value}.png?bgset=bg1`)
     }
     handleLast(e) {
-        console.log(this.props.addlastName)
+        // console.log(this.props.addlastName)
         this.props.addlastName(e.target.value)
     }
     handleGender(e) {
-        console.log(this.props.addgender)
+        // console.log(this.props.addgender)
         this.props.addgender(e.target.value)
     }
     handleHair(e) {
-        console.log(this.props.addhairColor)
+        // console.log(this.props.addhairColor)
         this.props.addhairColor(e.target.value)
     }
     handleEye(e) {
-        console.log(this.props.addeyeColor)
+        // console.log(this.props.addeyeColor)
         this.props.addeyeColor(e.target.value)
     }
     handleHobby(e) {
-        console.log(this.props.addhobby)
+        // console.log(this.props.addhobby)
         this.props.addhobby(e.target.value)
     }
     handleDay(e) {
-        console.log(this.props.addbirthDay)
+        // console.log(this.props.addbirthDay)
         this.props.addbirthDay(e.target.value)
     }
     handleMonth(e) {
-        console.log(this.props.addbirthMonth)
+        // console.log(this.props.addbirthMonth)
         this.props.addbirthMonth(e.target.value)
     }
     handleYear(e) {
-        console.log(this.props.addbirthYear)
+        // console.log(this.props.addbirthYear)
         this.props.addbirthYear(e.target.value)
     }
     handleImage(e) {
-        console.log(this.props.addimage)
-        this.props.addimage(e.target.value)
+        // console.log(this.props.addimage)
+        this.props.addimage(`https://robohash.org/${e.target.value}.png?bgset=bg1`)
     }
-
+    updateInfo(){
+        axios.put('/api/updateInfo/', this.props.persons).then(() => {
+            this.props.history.push('/Dashboard')
+            
+        })
+    }
+  
     
     render(){
+        console.log('this is state on render', this.state)
+        var image = this.state.image ? this.state.image : `https://robohash.org/${this.props.firstname}.png?bgset=bg1`
         // var select = document.getElementById("example-select");
         // select.options[select.options.length] = new Option('Text 1', 'Value1');
-        console.log(this.props.addbirthYear)
+        // console.log(this.props.addbirthYear)
         var uppername = (`${this.props.firstname}`)
         var name = uppername.toUpperCase();
         
@@ -111,8 +135,9 @@ class Profile extends Component {
                 <div className="middlewhitebox2">
                 <lowertop className="twobox2">
                     <div className="boxleft2">                  
-                        <div className="userpic">
-                        <img src={`https://robohash.org/${this.props.firstname}.png?bgset=bg1`} height="100%" width="100%"/>
+                        <div onChange={this.handleImage} className="userpic">
+                        <img 
+                        src={image} height="100%" width="100%"/>
                         
                         </div>                  
                         <div>
@@ -122,7 +147,7 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div className="boxright2">
-                        <button className="update">Update</button>
+                        <button onClick={this.updateInfo} className="update">Update</button>
                        <Link to="/Dashboard">
                         <button className="cancelbutton">Cancel</button>
                         </Link>
@@ -132,9 +157,9 @@ class Profile extends Component {
 
                 <lowerbottom2>
                     <p>First Name</p>
-                    <input type="text" onChange={this.handleName} value={this.props.firstname}/>
+                    <input type="text" onChange={this.handleName} value={this.props.firstname} placeholder="Enter Firstname"/>
                     <p>Last Name</p>
-                    <input type="text" onChange={this.handleLast} value={this.props.lastname}/>
+                    <input type="text" onChange={this.handleLast} value={this.props.lastname} placeholder="Enter Lastname"/>
                     <p>Gender</p>
                     <select onChange={this.handleGender} value={this.props.gender}> 
                         <option name="" value=""></option>
