@@ -15,8 +15,6 @@ header{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2); */
-    /* box-shadow: 0 14px 28px 0 rgba(0,0,0,0.25), 0 10px 10px 0 rgba(0,0,0,0.26); */
     position: fixed;
 }
 
@@ -27,26 +25,20 @@ header{
     justify-content: space-around;
     color: white;
     font-size: 20px;
-    font-weight: bold;
-    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
-    
+    font-weight: bold;    
 }
 
-.headercenter2{
+.headercenter{
     /* border: 1px black solid; */
     color: white;
-    /* font-weight: bold; */
     font-size: 17px;
     padding-right: 90px;
-    /* box-shadow: 0 1px 3px 0 rgba(148, 71, 71, 0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
 }
 
 .headerright2{
     /* border: 1px black solid; */
-    color: white;
-    /* font-weight: bold; */
+    color: white; 
     font-size: 17px;
-    /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
     /* ----------------------------------------------------Header */
 }
 .the61{
@@ -59,7 +51,6 @@ header{
     flex-direction: column;
     align-items: center;
     background-color: #F2F2F2;
-    /* border: 2px solid #adff2f; */
     height: 94vh;
     width: 100vw;
 
@@ -102,11 +93,9 @@ lowerbottom3{
     /* border: 1px #ffbb00 solid; */
     height: 7%;
     margin: 15px;
-    /* border-radius: 6px; */
     background-color: #ffffff;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
     display: flex;
-    /* align-items: flex-start; */
     align-items: center;
     position: absolute;
     bottom: 75px;
@@ -230,31 +219,22 @@ lowerbottom3 p{
     justify-content: space-around;
     align-items: center;
     color: black;
-    /* float: left; */
-
-    /* text-decoration: none; */
-
 }
 .current{
     height: 40%;
     width: 3%;
     border: 2px solid black;
     display: flex;
-    /* justify-content: center; */
     background-color: white;
     color: black;
     display: flex;
-    padding-left: 10px;
-    /* padding-right: 10px */
-   
+    padding-left: 10px;   
 }
 .current1{
     display: flex;
     padding-right: 30px;
     height: 100%;
-    width: 100%;
-    /* justify-content: center; */
-    
+    width: 100%;    
 }
 
 .current:hover{
@@ -264,7 +244,6 @@ lowerbottom3 p{
     width: 8%;
     display: flex;
     justify-content: flex-start;
-    /* content: "Page:   "; */
     border-color: white;
     text-decoration-color: white;
     padding-right: 10px;
@@ -279,7 +258,6 @@ pagebar .text:hover{
     display: flex;
 }
 pagebar .text{
-    /* content: "Page: "; */
     visibility: hidden;
     color: blue;
     display: flex;

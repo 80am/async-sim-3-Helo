@@ -19,50 +19,60 @@ const {
 
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: true                    
+    saveUninitialized: true
 }))
 //-----------------------------------------------------------------------------------------------------------------------------
-app.get('/auth/callback', async (req,res)=>{
+app.get('/auth/callback', async (req, res) => {
     console.log("we got to server")
     //code ---> req.query.code
-try{
-    let payload ={
-        client_id: REACT_APP_CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        code: req.query.code,
-        grant_type: 'authorization_code',
-        redirect_uri:`http://${req.headers.host}/auth/callback`
-    }
+    try {
+        let payload = {
+            client_id: REACT_APP_CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            code: req.query.code,
+            grant_type: 'authorization_code',
+            redirect_uri: `http://${req.headers.host}/auth/callback`
+        }
 
-    //post request with code for token
-    let tokenRes = await axios.post(`https://${REACT_APP_DOMAIN}/oauth/token`, payload)
-    let userRes = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${tokenRes.data.access_token}`)
-    // console.log("my info", userRes.data)
-    const db = req.app.get('db')
-    const {sub} = userRes.data
-    // console.log(sub)
-    let foundUser = await db.find_user([sub])
-    console.log("looking for user")
-    if (foundUser[0]) {
-        req.session.user = foundUser[0]
-        console.log("found user and on session")
-    }else {
-        let createdUser = await db.create_user([sub])
-        req.session.user = createdUser[0]
-        console.log("didnt find user but created it")
+        //post request with code for token
+        let tokenRes = await axios.post(`https://${REACT_APP_DOMAIN}/oauth/token`, payload)
+        let userRes = await axios.get(`https://${REACT_APP_DOMAIN}/userinfo?access_token=${tokenRes.data.access_token}`)
+        // console.log("my info", userRes.data)
+        const db = req.app.get('db')
+        const { sub } = userRes.data
+        // console.log(sub)
+        let foundUser = await db.find_user([sub])
+        console.log("looking for user")
+        if (foundUser[0]) {
+            req.session.user = foundUser[0]
+            console.log("found user and on session")
+        } else {
+            let createdUser = await db.create_user([sub])
+            req.session.user = createdUser[0]
+            console.log("didnt find user but created it")
+        }
+        res.redirect('/#/Dashboard')
     }
-    res.redirect('/#/Dashboard')
-}
-catch(error){
-    console.log(error)
-}
+    catch (error) {
+        console.log(error)
+    }
 })
 
 //----------------------------------------------------------------------------------------------------
+
+const block = (req, res, next)=> {
+    console.log("this is req body", req.body)
+    if(req.body.hobby == "") { 
+       return res.sendStatus(400)
+    }
+    else {
+        next();
+    }
+}
 
 app.get('/api/getusers/', ctrl.getFriends)
 app.get('/api/numberofpeople', ctrl.numberOfPeople)
@@ -74,7 +84,7 @@ app.get('/api/myfriends', ctrl.myfriends)
 app.get('/api/myinfo/', ctrl.myinfo)
 app.post('/api/addfriend/:id', ctrl.addFriend)
 app.post('/api/deletefriend/:id', ctrl.deleteFriend)
-app.put('/api/updateInfo/', ctrl.updateInfo)
+app.put('/api/updateInfo', block, ctrl.updateInfo)
 
 
 app.get('/api/search/:searchId', ctrl.userspages)
@@ -87,7 +97,7 @@ app.get('/logout', (req, res) => {
 
 massive(CONNECTION_STRING).then(connection => {
     app.set('db', connection)
-    console.log("DB is connected")  
+    console.log("DB is connected")
 })
 
 

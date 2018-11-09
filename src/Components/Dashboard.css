@@ -19,10 +19,7 @@ header{
 }
 
 .headerhelo{
-    /* text-emphasis: none; */
-    /* text-emphasis-style: none; */
-    /* color: white; */
-    /* text-decoration-line: none; */
+   
     height: 3vh;
     background-color: transparent;
     border-style: none;
@@ -55,11 +52,13 @@ header{
     padding-right: 90px;
 }
 
-.headerright{
+.headerright button{
     /* border: 1px black solid; */
     color: white;
     /* font-weight: bold; */
     font-size: 17px;
+    background: transparent;
+    border-style: none;
     /* ----------------------------------------------------Header */
 }
 

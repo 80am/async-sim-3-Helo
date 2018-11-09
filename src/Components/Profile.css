@@ -46,13 +46,15 @@ header{
     /* box-shadow: 0 1px 3px 0 rgba(148, 71, 71, 0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
 }
 
-.headerright2{
+.headerright2 button{
     /* border: 1px black solid; */
     color: white;
     /* font-weight: bold; */
     font-size: 17px;
     /* box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2) */
     /* ----------------------------------------------------Header */
+    background: transparent;
+    border-style: none;
 }
 .the6{
     height: 8vh;

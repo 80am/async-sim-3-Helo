@@ -132,7 +132,7 @@ class Dashboard extends Component {
 
                     <div className="headerright">
                         <a href="http://localhost:5001/logout">
-                            <div>Logout</div>
+                            <button>Logout</button>
                         </a>
                     </div>
                 </header>

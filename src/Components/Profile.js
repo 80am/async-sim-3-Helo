@@ -88,10 +88,12 @@ class Profile extends Component {
         this.props.addimage(`https://robohash.org/${e.target.value}.png?bgset=bg1`)
     }
     updateInfo(){
-        axios.put('/api/updateInfo/', this.props.persons).then(() => {
+        axios.put('/api/updateInfo/', this.props.persons).then((res) => {
+            // if(res.message)alert(res.message)
+            // else{
             this.props.history.push('/Dashboard')
-            
-        })
+        // }
+        }).catch((err)=>{alert("fill in everything")})
     }
   
     
@@ -127,7 +129,9 @@ class Profile extends Component {
                     </div>
                     
                     <div className="headerright2">
-                        <div>Logout</div>
+                    <a href="http://localhost:5001/logout">
+                        <button>Logout</button>
+                        </a>
                     </div>
                 </header>
                 <div className="the6"></div>

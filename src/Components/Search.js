@@ -5,6 +5,7 @@ import home from '../Images/friendsterHome.png'
 import search from '../Images/friendsterSearch.png'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {Motion, spring} from 'react-motion'
 
 class Search extends Component {
 
@@ -27,6 +28,7 @@ class Search extends Component {
         this.handlefilterInput = this.handlefilterInput.bind(this)
         this.filterSelect = this.filterSelect.bind(this)
         this.handlefilterSearch = this.handlefilterSearch.bind(this)
+        // this.componentDidMount = this.componentDidMount.bind(this)
 
     }
     
@@ -46,10 +48,8 @@ class Search extends Component {
         )
         
     }
-    // axios.get(`/api/getusers`).then(res => this.setState({friends: res.data})
 
     handlePageChange(number) {
-        // console.log('number', number)
         this.setState({
             page: number
         })
@@ -71,6 +71,13 @@ class Search extends Component {
         this.setState({
             filterInput: e.target.value
         })
+    }
+    handleReset(){
+        this.setState({
+            filterSelect: "",
+            sortedFriends:[]
+        })
+    
     }
 
     handlefilterSearch() {
@@ -132,7 +139,16 @@ class Search extends Component {
                     if (friend.friend_id) {
 
                         return (
-                            <React.Fragment key={friend.user_id}>
+                            <Motion defaultStyle={{ x: -200, opacity: 0 }}
+                            style={{ x: spring(0), opacity: spring(1) }}
+                            >
+                            {style => (
+
+                                <React.Fragment key={friend.user_id} style={{
+                                    transform: `tranX(${style.x}px)`,
+                                    opacity: style.opacity
+                                    }}
+                                >
 
                                 <div className="biginfobox">
                                     <div className="infoboxleft">
@@ -150,6 +166,8 @@ class Search extends Component {
                                 <br />
 
                             </React.Fragment>
+                            )}
+                            </Motion>
                         )
                     } else {
                         return (
@@ -201,7 +219,9 @@ class Search extends Component {
                                 </div>
 
                                 <div className="headerright">
-                                    <div>Logout</div>
+                                <a href="http://localhost:5001/logout">
+                                    <button>Logout</button>
+                                    </a>
                                 </div>
                             </header>
                             <div className="the61"></div>
@@ -217,7 +237,7 @@ class Search extends Component {
                                         <input onChange={this.handlefilterInput} type="text" />
                                         <button className="searchbutton" onClick={this.handlefilterSearch}>Search</button>
                                         <Link to="/search">
-                                            <button className="resetbutton" onClick={this.componentDidMount}>Reset</button>
+                                            <button className="resetbutton" onClick={()=>{this.handleReset()}}>Reset</button>
                                         </Link>
                                     </lowertop3>
                                     <midbottom3>
@@ -240,7 +260,7 @@ class Search extends Component {
                         </div>
                     }
                     {this.state.friends.length === 0 &&
-                        <div>loading...</div>
+                        <div>Waiting for your friends to get out of the pool, please hold...</div>
                     }
                 </mainbody>
 

@@ -3,3 +3,4 @@ insert into helousers(
 ) values (
     $1
 )
+returning *
